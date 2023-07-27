@@ -4,8 +4,7 @@
   "description": "Cryptofonts API to retrieve token address, symbol, name, logo and more",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon index.js",
-    "build": "node index.js"
+    "start": "node index.js"
   },
   "author": "Fabio Monzani",
   "license": "ISC",
