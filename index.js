@@ -1,4 +1,4 @@
-const PORT = 8500;
+const PORT = process.env.PORT || 3000;
 const dotenv = require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
@@ -12,6 +12,7 @@ const headers = {
   apikey: apikey,
 };
 
+// Simple ping endpoint
 app.get("/ping", (req, res) => {
   res.json("Cryptofonts to the moon!");
 });
@@ -55,18 +56,3 @@ app.get("/:chainId/:address", async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-process.on("SIGINT", () => {
-  console.log("\nClosing the server...");
-
-  // Close the server and free up the port
-  server.close((err) => {
-    if (err) {
-      console.error("Error while closing the server:", err);
-      process.exit(1); // Exit the process with an error code (optional)
-    }
-
-    console.log("Server has been closed successfully.");
-    process.exit(0); // Exit the process with a success code (optional)
-  });
-});
