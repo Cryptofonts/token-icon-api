@@ -12,6 +12,11 @@ const headers = {
   apikey: apikey,
 };
 
+// Base endpoint
+app.get("/", (req, res) => {
+  res.json("Hellooo!");
+});
+
 // Simple ping endpoint
 app.get("/ping", (req, res) => {
   res.json("Cryptofonts to the moon!");
