@@ -19,8 +19,9 @@ app.get("/", (req, res) => {
 
 // Endpoint for address only
 app.get("/:address", async (req, res) => {
+  lowercaseAddress = req.params.address.toLowerCase();
   axios
-    .get(apiURL + "address=eq." + req.params.address + "&select=name,logoURI,symbol,chainId,decimals,address,chain", { headers })
+    .get(apiURL + "address=eq." + lowercaseAddress + "&select=name,logoURI,symbol,chainId,decimals,address,chain", { headers })
     .then((response) => {
       const modres = response.data.map((item) => {
         return {
@@ -28,6 +29,11 @@ app.get("/:address", async (req, res) => {
           logoURI: bucketURL + item.logoURI,
         };
       });
+
+      if (modres.length === 0) {
+        return res.status(404).json({ error: "No data found for the given address." });
+      }
+
       res.json(modres);
     })
     .catch((error) => {
@@ -38,8 +44,9 @@ app.get("/:address", async (req, res) => {
 
 // Endpoint for chainId and address (recommended)
 app.get("/:chainId/:address", async (req, res) => {
+  lowercaseAddress = req.params.address.toLowerCase();
   axios
-    .get(apiURL + "chainId=eq." + req.params.chainId + "&address=eq." + req.params.address + "&select=name,logoURI,symbol,chainId,decimals,address,chain", { headers })
+    .get(apiURL + "chainId=eq." + req.params.chainId + "&address=eq." + lowercaseAddress + "&select=name,logoURI,symbol,chainId,decimals,address,chain", { headers })
     .then((response) => {
       const modres = response.data.map((item) => {
         return {
@@ -47,6 +54,11 @@ app.get("/:chainId/:address", async (req, res) => {
           logoURI: bucketURL + item.logoURI,
         };
       });
+
+      if (modres.length === 0) {
+        return res.status(404).json({ error: "No data found for the given address." });
+      }
+
       res.json(modres);
     })
     .catch((error) => {
