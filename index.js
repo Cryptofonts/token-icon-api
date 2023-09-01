@@ -31,7 +31,7 @@ app.get("/:address", async (req, res) => {
       });
 
       if (modres.length === 0) {
-        return res.status(404).json({ error: "No data found for the given address." });
+        return res.status(404).json({ error: "No data found for " + lowercaseAddress });
       }
 
       res.json(modres);
@@ -56,7 +56,7 @@ app.get("/:chainId/:address", async (req, res) => {
       });
 
       if (modres.length === 0) {
-        return res.status(404).json({ error: "No data found for the given address." });
+        return res.status(404).json({ error: "No data found " + lowercaseAddress + " on chain " + req.params.chainId });
       }
 
       res.json(modres);
